@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>画线</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #canvas{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" width="150" height="150"></canvas>
+<script>
+    let  canvas = document.getElementById("canvas");
+    //获取当前窗口可视宽度/可视高度
+    canvas.width = document.documentElement.clientWidth;
+    canvas.height = document.documentElement.clientHeight;
+
+    let ctx = document.getContext("2d");
+
+    //初始化开关 生活中的列子 红绿灯
+    let painting = false;
+
+</script>
+</body>
+</html>
