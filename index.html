@@ -25,7 +25,7 @@
     canvas.height = document.documentElement.clientHeight;
 
     let ctx = canvas.getContext("2d");
-    alert("请体验开始画线条!");
+    // alert("请体验开始画线条!");
     //初始化开关 生活中的列子 红绿灯
     let painting = false;
     let lastPoint = {
@@ -35,9 +35,11 @@
     // 设置图形轮廓的颜色
     ctx.strokeStyle = "none";
 
-    canvas.onmousedown = () =>{
+    canvas.onmousedown = (e) =>{
         // 当鼠标按下打开开关   绘画开关
         painting = true;
+        lastPoint = {x:e.clientX, y:e.clientY}
+        console.log(lastPoint);
     }
 
 
@@ -52,7 +54,6 @@
             let y = e.clientY;
             let newPoint = {
                 "x": x, "y": y};
-            console.log(newPoint);
             drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y);
             lastPoint = newPoint;
         }else{
@@ -62,17 +63,22 @@
 
     canvas.onmouseup = ()=>{
         painting = false;
+
     }
 
     // 划线函数
     function drawLine(x1, y1, x2, y2) {
-        ctx.lineWidth = 0;
+        ctx.beginPath();
+        ctx.lineWidth = 3;
         ctx.lineCap = "round";
         ctx.lineJoin = "round";
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
+
         ctx.stroke();
+        ctx.fill();
         ctx.closePath();
+
     }
 
 </script>
