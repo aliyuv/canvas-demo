@@ -38,6 +38,7 @@
     canvas.onmousedown = (e) =>{
         // 当鼠标按下打开开关   绘画开关
         painting = true;
+        //当鼠标按下获取当前点的坐标然后赋值给lastPoint 这个变量
         lastPoint = {x:e.clientX, y:e.clientY}
         console.log(lastPoint);
     }
