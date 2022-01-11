@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" >
     <title>画线</title>
 
     <style>
@@ -12,12 +13,14 @@
         }
 
         #canvas{
+
             display: block;
+            background-color: red;
         }
     </style>
 </head>
 <body>
-<canvas id="canvas" width="150" height="150"></canvas>
+<canvas id="canvas" ></canvas>
 <script>
     let  canvas = document.getElementById("canvas");
     //获取当前窗口可视宽度/可视高度
@@ -35,6 +38,28 @@
     // 设置图形轮廓的颜色
     ctx.strokeStyle = "none";
 
+    let isTouchDevice =  'ontouchstart' in document.documentElement;
+    if (isTouchDevice){
+
+        canvas.ontouchstart = (e) =>{
+
+            let x = e.touches[0].clientX;
+            let y = e.touches[0].clientY;
+            lastPoint = {x:x,y:y};
+            canvas.ontouchmove = (e)=>{
+                console.log(canvas.width, canvas.height);
+                let x = e.touches[0].clientX;
+                console.log(x);
+                let y = e.touches[0].clientY;
+                let newPoint = {
+                    "x": x, "y": y};
+                drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y);
+                console.log(newPoint);
+                lastPoint = newPoint;
+            }
+
+        }
+    }
     canvas.onmousedown = (e) =>{
         // 当鼠标按下打开开关   绘画开关
         painting = true;
@@ -62,9 +87,10 @@
         }
     }
 
+
+
     canvas.onmouseup = ()=>{
         painting = false;
-
     }
 
     // 划线函数
@@ -75,7 +101,6 @@
         ctx.lineJoin = "round";
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
-
         ctx.stroke();
         ctx.fill();
         ctx.closePath();
